@@ -32,6 +32,19 @@ Chaque fois que tu modifies un fichier, l'app se met à jour toute seule sur le 
 
 Version web (pour le portfolio) : `npx expo start --web`.
 
+## Installer l'app sur l'iPhone (sans PC, hors ligne)
+
+L'app peut s'installer comme une « web app » sur l'écran d'accueil et fonctionner sans internet.
+
+1. Construis la version web : `npm run build:web` (crée le dossier `dist/`).
+2. Mets le dossier `dist/` en ligne (GitHub Pages ou Netlify, gratuit).
+3. Sur l'iPhone, ouvre l'adresse dans **Safari**, touche **Partager** puis **Sur l'écran d'accueil**.
+4. Ouvre l'app une fois avec internet : elle se copie sur le téléphone (avec les images des exercices).
+   Ensuite, elle marche même en mode avion.
+
+Tes données (séances, mesures) restent sur le téléphone. Limite : pas de vibration à la fin du repos
+(Safari ne le permet pas), le chrono reste affiché.
+
 ## Comment le code est organisé
 
 ```
@@ -59,6 +72,8 @@ src/
     exercices.ts          ← fiches exercices (images, position)
     stats.ts              ← tonnage, calories, 1RM, bilan
 supabase/functions/generate-program/index.ts ← serveur qui parle à Claude
+scripts/build-pwa.js       ← rend la version web installable et hors ligne
+public/icons/              ← icônes de l'app
 ```
 
 ## Brancher l'IA
