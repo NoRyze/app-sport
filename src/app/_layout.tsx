@@ -19,6 +19,7 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerTintColor: Colors.text, headerStyle: { backgroundColor: Colors.background } }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="seance/[semaine]/[jour]" options={{ title: 'Séance', headerBackTitle: 'Programme' }} />
+          <Stack.Screen name="exercice/[nom]" options={{ title: 'Fiche exercice', headerBackTitle: 'Séance' }} />
         </Stack>
       </ThemeProvider>
     </AppProvider>

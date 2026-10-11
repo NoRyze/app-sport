@@ -7,9 +7,10 @@ import { Bouton, Card, SousTitre, Texte, Titre } from '@/components/ui';
 import { Colors, Radius, Spacing } from '@/constants/theme';
 import { iaConfiguree } from '@/lib/ai';
 import { useApp } from '@/lib/store';
+import { cleSeance } from '@/lib/types';
 
 export default function ProgrammeScreen() {
-  const { pret, profil, programme, generer, enGeneration, erreurIa } = useApp();
+  const { pret, profil, programme, logs, generer, enGeneration, erreurIa } = useApp();
   const [semaine, setSemaine] = useState(1);
 
   if (!pret) {
@@ -64,7 +65,14 @@ export default function ProgrammeScreen() {
               <Text style={styles.jour}>Séance {seance.jour}</Text>
               <Text style={styles.seanceNom}>{seance.nom}</Text>
               <Texte secondaire>{seance.focus}</Texte>
-              <Text style={styles.meta}>{seance.exercices.length} exercices  ›</Text>
+              <Text style={styles.meta}>
+                {logs[cleSeance(semaineCourante.numero, seance.jour)]?.terminee
+                  ? '✅ Faite'
+                  : logs[cleSeance(semaineCourante.numero, seance.jour)]?.debut
+                    ? '⏳ En cours'
+                    : `${seance.exercices.length} exercices`}
+                {'  ›'}
+              </Text>
             </Card>
           </Pressable>
         </Link>

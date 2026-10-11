@@ -28,8 +28,8 @@ const EXERCICES: Record<Mouvement, Record<Materiel, string[]>> = {
     poids_du_corps: ['Squat poids du corps', 'Squat sauté'],
   },
   charniere: {
-    salle: ['Soulevé de terre roumain', 'Soulevé de terre', 'Leg curl'],
-    halteres: ['Soulevé de terre roumain haltères', 'Hip thrust haltère'],
+    salle: ['Romanian deadlift', 'Deadlift', 'Leg curl'],
+    halteres: ['Romanian deadlift haltères', 'Hip thrust haltère'],
     poids_du_corps: ['Hip thrust au sol', 'Good morning poids du corps'],
   },
   fente: {

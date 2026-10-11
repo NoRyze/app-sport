@@ -22,6 +22,20 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="corps"
+        options={{
+          title: 'Corps',
+          tabBarIcon: ({ color, size }) => <Ionicons name="body" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="bilan"
+        options={{
+          title: 'Bilan',
+          tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
         name="profil"
         options={{
           title: 'Profil',

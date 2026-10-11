@@ -95,3 +95,56 @@ export type AiPlan = {
   seances: Session[];
   progression: { numero: number; theme: string; rpe: number; deltaSeries: number }[];
 };
+
+// ---------- Suivi : ce que tu remplis pendant les séances ----------
+
+export type SerieLog = {
+  poids: number | null; // kg (lest ajouté pour les exercices au poids du corps)
+  reps: number | null;
+  fait: boolean;
+};
+
+export type SeanceLog = {
+  debut?: string; // date ISO de la première série validée
+  derniereActivite?: string; // date ISO de la dernière série validée
+  terminee: boolean;
+  series: Record<number, SerieLog[]>; // index de l'exercice -> ses séries
+};
+
+// Clé d'une séance dans le programme : "semaine-jour", ex : "3-2".
+export const cleSeance = (semaine: number, jour: number) => `${semaine}-${jour}`;
+
+// ---------- Mesures du corps ----------
+
+export type Mensuration =
+  | 'poids'
+  | 'masseGrasse'
+  | 'cou'
+  | 'epaules'
+  | 'poitrine'
+  | 'bras'
+  | 'avantBras'
+  | 'taille'
+  | 'hanches'
+  | 'cuisse'
+  | 'mollet';
+
+export const MENSURATIONS: { cle: Mensuration; label: string; unite: string; objectifBaisse?: boolean }[] = [
+  { cle: 'poids', label: 'Poids', unite: 'kg' },
+  { cle: 'masseGrasse', label: 'Masse grasse', unite: '%', objectifBaisse: true },
+  { cle: 'cou', label: 'Cou', unite: 'cm' },
+  { cle: 'epaules', label: 'Épaules', unite: 'cm' },
+  { cle: 'poitrine', label: 'Poitrine', unite: 'cm' },
+  { cle: 'bras', label: 'Bras (biceps contracté)', unite: 'cm' },
+  { cle: 'avantBras', label: 'Avant-bras', unite: 'cm' },
+  { cle: 'taille', label: 'Tour de taille', unite: 'cm', objectifBaisse: true },
+  { cle: 'hanches', label: 'Hanches', unite: 'cm' },
+  { cle: 'cuisse', label: 'Cuisse', unite: 'cm' },
+  { cle: 'mollet', label: 'Mollet', unite: 'cm' },
+];
+
+export type Mesure = {
+  id: string;
+  date: string; // ISO
+  valeurs: Partial<Record<Mensuration, number>>;
+};

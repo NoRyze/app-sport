@@ -72,7 +72,7 @@ const schema = {
 const SYSTEM = `Tu es un coach de musculation diplômé. Tu conçois des programmes sûrs, efficaces et réalistes, en français.
 Tu renvoies une semaine type (une séance par jour d'entraînement) et une progression semaine par semaine
 (périodisation avec montée progressive de l'intensité et des semaines de décharge quand c'est pertinent).
-Respecte la durée de séance, le matériel disponible et les blessures signalées. Les noms d'exercices sont courts et usuels.`;
+Respecte la durée de séance, le matériel disponible et les blessures signalées. Les noms d'exercices sont courts et usuels en salle : garde le nom anglais quand c'est celui que tout le monde utilise (Romanian deadlift, Deadlift, Hip thrust, Leg curl, Face pull, Goblet squat...), sinon le nom français (Développé couché, Tractions, Fentes bulgares...).`;
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });

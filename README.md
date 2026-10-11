@@ -1,7 +1,19 @@
 # App Sport
 
 Application iPhone (Expo / React Native) qui génère des programmes d'entraînement sur plusieurs semaines grâce à l'IA.
-Premier module : **musculation**. À venir : suivi de performance, HYROX, CrossFit.
+Premier module : **musculation**. À venir : HYROX, CrossFit.
+
+## Fonctionnalités
+
+- **Profil** : âge, poids, niveau, objectif, matériel, séances par semaine…
+- **Programme** sur 4 à 16 semaines (IA ou générateur hors ligne), noms d'exercices usuels en salle.
+- **Séance** : saisie de la charge et des répétitions de chaque série, chrono de repos automatique
+  (vibration à la fin), tonnage, durée et calories estimées en direct.
+- **Fiche exercice** : images de départ et d'arrivée, matériel, muscles, bonne position.
+- **Corps** : poids et mensurations datés (bras, poitrine, taille, cuisse…).
+- **Bilan** : assiduité, tonnage par semaine, progression de force (1RM estimé), évolution du corps.
+
+Calories : estimation par la méthode MET (5 MET × poids × durée). Images : [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) (domaine public).
 
 ## Tester sur ton iPhone (sans Mac)
 
@@ -27,9 +39,14 @@ src/
     _layout.tsx           ← navigation principale
     (tabs)/_layout.tsx    ← barre d'onglets en bas
     (tabs)/index.tsx      ← écran Programme
+    (tabs)/corps.tsx      ← écran Corps (mesures)
+    (tabs)/bilan.tsx      ← écran Bilan
     (tabs)/profil.tsx     ← écran Profil
+    exercice/[nom].tsx    ← fiche exercice (images, position)
     seance/[semaine]/[jour].tsx ← détail d'une séance
   components/ui.tsx       ← boutons, cartes, sélecteurs réutilisables
+  components/rest-timer.tsx ← chrono de repos
+  components/barres.tsx   ← petit graphique en barres
   constants/theme.ts      ← couleurs et espacements
   lib/
     types.ts              ← forme des données (profil, programme, séance…)
@@ -37,6 +54,8 @@ src/
     store.tsx             ← état partagé entre les écrans
     generator.ts          ← générateur hors ligne + "déroulage" du plan IA
     ai.ts                 ← appel au serveur IA (avec secours hors ligne)
+    exercices.ts          ← fiches exercices (images, position)
+    stats.ts              ← tonnage, calories, 1RM, bilan
 supabase/functions/generate-program/index.ts ← serveur qui parle à Claude
 ```
 
