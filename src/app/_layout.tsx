@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+// Point d'entrée de la navigation : une pile d'écrans (Stack) qui contient
+// les onglets, plus l'écran de détail d'une séance par-dessus.
+import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Colors } from '@/constants/theme';
+import { AppProvider } from '@/lib/store';
 
-SplashScreen.preventAutoHideAsync();
+const theme = {
+  ...DarkTheme,
+  colors: { ...DarkTheme.colors, background: Colors.background, card: Colors.background, primary: Colors.accent },
+};
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <AppProvider>
+      <ThemeProvider value={theme}>
+        <StatusBar style="light" />
+        <Stack screenOptions={{ headerTintColor: Colors.text, headerStyle: { backgroundColor: Colors.background } }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="seance/[semaine]/[jour]" options={{ title: 'Séance', headerBackTitle: 'Programme' }} />
+        </Stack>
+      </ThemeProvider>
+    </AppProvider>
   );
 }

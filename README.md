@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+# App Sport
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application iPhone (Expo / React Native) qui génère des programmes d'entraînement sur plusieurs semaines grâce à l'IA.
+Premier module : **musculation**. À venir : suivi de performance, HYROX, CrossFit.
 
-## Get started
+## Tester sur ton iPhone (sans Mac)
 
-1. Install dependencies
-
+1. Installe **Node.js LTS** sur ton PC : https://nodejs.org
+2. Installe l'app **Expo Go** sur ton iPhone (App Store).
+3. Dans un terminal, dans ce dossier :
    ```bash
    npm install
-   ```
-
-2. Start the app
-
-   ```bash
    npx expo start
    ```
+4. Un QR code s'affiche. Scanne-le avec l'appareil photo de l'iPhone : l'app s'ouvre dans Expo Go.
+   Ton PC et ton iPhone doivent être sur le même Wi-Fi (sinon : `npx expo start --tunnel`).
 
-In the output, you'll find options to open the app in a
+Chaque fois que tu modifies un fichier, l'app se met à jour toute seule sur le téléphone.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Version web (pour le portfolio) : `npx expo start --web`.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Comment le code est organisé
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+  app/                    ← chaque fichier = un écran (Expo Router)
+    _layout.tsx           ← navigation principale
+    (tabs)/_layout.tsx    ← barre d'onglets en bas
+    (tabs)/index.tsx      ← écran Programme
+    (tabs)/profil.tsx     ← écran Profil
+    seance/[semaine]/[jour].tsx ← détail d'une séance
+  components/ui.tsx       ← boutons, cartes, sélecteurs réutilisables
+  constants/theme.ts      ← couleurs et espacements
+  lib/
+    types.ts              ← forme des données (profil, programme, séance…)
+    storage.ts            ← sauvegarde sur le téléphone
+    store.tsx             ← état partagé entre les écrans
+    generator.ts          ← générateur hors ligne + "déroulage" du plan IA
+    ai.ts                 ← appel au serveur IA (avec secours hors ligne)
+supabase/functions/generate-program/index.ts ← serveur qui parle à Claude
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Brancher l'IA
 
-### Other setup steps
+Sans configuration, l'app utilise le générateur hors ligne (règles de coach classiques).
+Pour activer l'IA :
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+1. Crée un projet gratuit sur https://supabase.com
+2. Crée une clé API sur https://console.anthropic.com
+3. Déploie la fonction serveur :
+   ```bash
+   npx supabase login
+   npx supabase link --project-ref <id-du-projet>
+   npx supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+   npx supabase functions deploy generate-program
+   ```
+4. Copie `.env.example` en `.env` et remplis l'URL et la clé "anon" de Supabase.
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+La clé Anthropic reste sur le serveur : elle n'est jamais dans l'app.
