@@ -48,7 +48,7 @@ export type Program = {
   titre: string;
   description: string;
   createdAt: string;
-  source: 'ia' | 'local';
+  source: 'ia' | 'local' | 'perso';
   semaines: Week[];
 };
 
@@ -147,4 +147,14 @@ export type Mesure = {
   id: string;
   date: string; // ISO
   valeurs: Partial<Record<Mensuration, number>>;
+};
+
+// Brouillon d'un programme créé ou modifié à la main : une semaine type
+// qui est ensuite déroulée sur toutes les semaines.
+export type ModeleProgramme = {
+  titre: string;
+  semaines: number;
+  // auto : intensité qui monte + décharge toutes les 4 semaines ; fixe : identique chaque semaine
+  progression: 'auto' | 'fixe';
+  seances: Session[];
 };

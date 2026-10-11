@@ -7,6 +7,7 @@ Premier module : **musculation**. À venir : HYROX, CrossFit.
 
 - **Profil** : âge, poids, niveau, objectif, matériel, séances par semaine…
 - **Programme** sur 4 à 16 semaines (IA ou générateur hors ligne), noms d'exercices usuels en salle.
+- **Programme perso** : crée ta propre programmation ou modifie celle générée (séances, exercices de la bibliothèque ou libres, séries, reps, repos). Les semaines déjà commencées ne sont pas modifiées.
 - **Séance** : saisie de la charge et des répétitions de chaque série, chrono de repos automatique
   (vibration à la fin), tonnage, durée et calories estimées en direct.
 - **Fiche exercice** : images de départ et d'arrivée, matériel, muscles, bonne position.
@@ -43,6 +44,7 @@ src/
     (tabs)/bilan.tsx      ← écran Bilan
     (tabs)/profil.tsx     ← écran Profil
     exercice/[nom].tsx    ← fiche exercice (images, position)
+    programme/editer.tsx  ← créer / modifier un programme
     seance/[semaine]/[jour].tsx ← détail d'une séance
   components/ui.tsx       ← boutons, cartes, sélecteurs réutilisables
   components/rest-timer.tsx ← chrono de repos

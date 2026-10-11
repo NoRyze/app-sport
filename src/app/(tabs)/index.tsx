@@ -26,6 +26,7 @@ export default function ProgrammeScreen() {
         </Texte>
         <View style={{ height: Spacing.lg }} />
         <Bouton titre="Générer mon programme" onPress={generer} chargement={enGeneration} />
+        <Bouton titre="Créer mon programme moi-même" variante="contour" onPress={() => router.push('/programme/editer')} />
         <Bouton titre="Compléter mon profil" variante="contour" onPress={() => router.navigate('/profil')} />
       </ScrollView>
     );
@@ -38,7 +39,13 @@ export default function ProgrammeScreen() {
       <Titre>{programme.titre}</Titre>
       <Texte secondaire>{programme.description}</Texte>
       <Text style={styles.source}>
-        {programme.source === 'ia' ? '✨ Généré par l’IA' : iaConfiguree ? '⚙️ Généré hors ligne (IA indisponible)' : '⚙️ Généré hors ligne'}
+        {programme.source === 'ia'
+          ? '✨ Généré par l’IA'
+          : programme.source === 'perso'
+            ? '✍️ Programme personnalisé'
+            : iaConfiguree
+              ? '⚙️ Généré hors ligne (IA indisponible)'
+              : '⚙️ Généré hors ligne'}
       </Text>
       {erreurIa && <Text style={styles.erreur}>{erreurIa}</Text>}
 
@@ -78,7 +85,12 @@ export default function ProgrammeScreen() {
         </Link>
       ))}
 
-      <Bouton titre="Régénérer le programme" variante="contour" onPress={generer} chargement={enGeneration} />
+      <Bouton
+        titre="Modifier le programme"
+        onPress={() => router.push({ pathname: '/programme/editer', params: { mode: 'modifier' } })}
+      />
+      <Bouton titre="Créer mon propre programme" variante="contour" onPress={() => router.push('/programme/editer')} />
+      <Bouton titre="Régénérer automatiquement" variante="contour" onPress={generer} chargement={enGeneration} />
     </ScrollView>
   );
 }

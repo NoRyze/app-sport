@@ -2,7 +2,7 @@
 // d'entraînement classiques. Il sert de solution de secours quand l'IA
 // n'est pas encore branchée (ou pas de réseau).
 
-import type { AiPlan, Exercise, Materiel, Objectif, Profile, Program, Session, Week } from './types';
+import type { AiPlan, Exercise, Materiel, ModeleProgramme, Objectif, Profile, Program, Session, Week } from './types';
 import { OBJECTIF_LABELS } from './types';
 
 // Un "mouvement" est une famille d'exercices (ex : pousser horizontalement).
@@ -172,7 +172,7 @@ function nombreExercices(dureeSeance: number) {
 }
 
 // Périodisation : on monte l'intensité 3 semaines puis 1 semaine de décharge.
-function phaseSemaine(numero: number, total: number) {
+export function phaseSemaine(numero: number, total: number) {
   const estDecharge = numero % 4 === 0 && numero !== total;
   if (estDecharge) return { theme: 'Décharge', rpe: 6, deltaSeries: -1 };
   if (numero === total && total >= 4) return { theme: 'Test et pic', rpe: 9, deltaSeries: 0 };
@@ -252,6 +252,49 @@ export function developperPlan(plan: AiPlan): Program {
     description: plan.description,
     createdAt: new Date().toISOString(),
     source: 'ia',
+    semaines,
+  };
+}
+
+// Construit un programme à partir d'une semaine type faite à la main.
+// Si on modifie un programme existant, les semaines déjà commencées
+// (au moins une séance remplie) sont gardées telles quelles pour ne pas
+// mélanger l'historique.
+export function construireDepuisModele(
+  modele: ModeleProgramme,
+  existant?: Program,
+  semainesCommencees: Set<number> = new Set(),
+): Program {
+  const semaines: Week[] = [];
+  for (let n = 1; n <= modele.semaines; n++) {
+    const ancienne = existant?.semaines.find((s) => s.numero === n);
+    if (ancienne && semainesCommencees.has(n)) {
+      semaines.push(ancienne);
+      continue;
+    }
+    const phase = modele.progression === 'auto' ? phaseSemaine(n, modele.semaines) : null;
+    semaines.push({
+      numero: n,
+      theme: phase?.theme ?? 'Programme perso',
+      sessions: modele.seances.map((seance, i) => ({
+        ...seance,
+        jour: i + 1,
+        exercices: seance.exercices.map((ex) => ({
+          ...ex,
+          series: Math.max(1, ex.series + (phase?.deltaSeries ?? 0)),
+          intensite: phase ? `RPE ${phase.rpe}` : ex.intensite,
+        })),
+      })),
+    });
+  }
+  return {
+    id: existant?.id ?? String(Date.now()),
+    titre: modele.titre.trim() || 'Mon programme',
+    description: `${modele.seances.length} séances par semaine, créé par toi.${
+      modele.progression === 'auto' ? ' Intensité progressive avec une semaine de décharge toutes les 4 semaines.' : ''
+    }`,
+    createdAt: existant?.createdAt ?? new Date().toISOString(),
+    source: 'perso',
     semaines,
   };
 }

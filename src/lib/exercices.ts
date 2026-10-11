@@ -3,7 +3,11 @@
 // https://github.com/yuhonas/free-exercise-db
 // Chaque exercice a 2 images : position de départ et position d'arrivée.
 
+export const GROUPES = ['Jambes', 'Pectoraux, épaules, triceps', 'Dos, biceps', 'Abdos, gainage'] as const;
+export type Groupe = (typeof GROUPES)[number];
+
 export type FicheExercice = {
+  groupe: Groupe;
   image?: string; // identifiant dans Free Exercise DB
   materiel: string;
   muscles: string;
@@ -23,6 +27,7 @@ export function imagesExercice(fiche: FicheExercice): string[] {
 export const FICHES: Record<string, FicheExercice> = {
   // ---------- Jambes ----------
   'Squat barre': {
+    groupe: 'Jambes',
     image: 'Barbell_Squat',
     materiel: 'Barre olympique sur rack à squat',
     muscles: 'Quadriceps, fessiers, lombaires',
@@ -34,6 +39,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Presse à cuisses': {
+    groupe: 'Jambes',
     image: 'Leg_Press',
     materiel: 'Machine presse à cuisses (inclinée à 45°)',
     muscles: 'Quadriceps, fessiers',
@@ -45,6 +51,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Hack squat': {
+    groupe: 'Jambes',
     image: 'Hack_Squat',
     materiel: 'Machine hack squat',
     muscles: 'Quadriceps, fessiers',
@@ -56,6 +63,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Goblet squat': {
+    groupe: 'Jambes',
     image: 'Goblet_Squat',
     materiel: 'Un haltère ou un kettlebell',
     muscles: 'Quadriceps, fessiers, gainage',
@@ -67,6 +75,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Squat haltères': {
+    groupe: 'Jambes',
     image: 'Dumbbell_Squat',
     materiel: 'Deux haltères',
     muscles: 'Quadriceps, fessiers',
@@ -78,6 +87,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Squat poids du corps': {
+    groupe: 'Jambes',
     image: 'Bodyweight_Squat',
     materiel: 'Aucun',
     muscles: 'Quadriceps, fessiers',
@@ -90,6 +100,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Squat sauté': {
+    groupe: 'Jambes',
     image: 'Freehand_Jump_Squat',
     materiel: 'Aucun',
     muscles: 'Quadriceps, fessiers, explosivité',
@@ -102,6 +113,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Romanian deadlift': {
+    groupe: 'Jambes',
     image: 'Romanian_Deadlift',
     materiel: 'Barre olympique',
     muscles: 'Ischio-jambiers, fessiers, lombaires',
@@ -113,6 +125,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Deadlift': {
+    groupe: 'Jambes',
     image: 'Barbell_Deadlift',
     materiel: 'Barre olympique posée au sol',
     muscles: 'Chaîne arrière complète, dos, fessiers',
@@ -124,6 +137,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Leg curl': {
+    groupe: 'Jambes',
     image: 'Lying_Leg_Curls',
     materiel: 'Machine leg curl (allongé ou assis)',
     muscles: 'Ischio-jambiers',
@@ -135,6 +149,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Romanian deadlift haltères': {
+    groupe: 'Jambes',
     image: 'Romanian_Deadlift',
     materiel: 'Deux haltères',
     muscles: 'Ischio-jambiers, fessiers',
@@ -146,6 +161,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Hip thrust haltère': {
+    groupe: 'Jambes',
     image: 'Barbell_Hip_Thrust',
     materiel: 'Un banc et un haltère (ou une barre)',
     muscles: 'Fessiers, ischio-jambiers',
@@ -157,6 +173,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Hip thrust au sol': {
+    groupe: 'Jambes',
     image: 'Butt_Lift_Bridge',
     materiel: 'Aucun (un tapis)',
     muscles: 'Fessiers',
@@ -169,6 +186,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Good morning poids du corps': {
+    groupe: 'Jambes',
     image: 'Good_Morning',
     materiel: 'Aucun (mains derrière la tête)',
     muscles: 'Ischio-jambiers, lombaires',
@@ -181,6 +199,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Fentes bulgares': {
+    groupe: 'Jambes',
     image: 'Split_Squats',
     materiel: 'Un banc (+ barre ou haltères pour charger)',
     muscles: 'Quadriceps, fessiers',
@@ -192,6 +211,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Fentes marchées': {
+    groupe: 'Jambes',
     image: 'Barbell_Walking_Lunge',
     materiel: 'Barre ou haltères',
     muscles: 'Quadriceps, fessiers',
@@ -203,6 +223,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Fentes bulgares haltères': {
+    groupe: 'Jambes',
     image: 'Split_Squat_with_Dumbbells',
     materiel: 'Un banc et deux haltères',
     muscles: 'Quadriceps, fessiers',
@@ -214,6 +235,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Fentes arrière haltères': {
+    groupe: 'Jambes',
     image: 'Dumbbell_Rear_Lunge',
     materiel: 'Deux haltères',
     muscles: 'Quadriceps, fessiers',
@@ -225,6 +247,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Fentes arrière': {
+    groupe: 'Jambes',
     image: 'Crossover_Reverse_Lunge',
     materiel: 'Aucun',
     muscles: 'Quadriceps, fessiers',
@@ -237,6 +260,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Step-up sur banc': {
+    groupe: 'Jambes',
     image: 'Dumbbell_Step_Ups',
     materiel: 'Un banc ou une marche solide',
     muscles: 'Quadriceps, fessiers',
@@ -249,6 +273,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Mollets debout machine': {
+    groupe: 'Jambes',
     image: 'Standing_Calf_Raises',
     materiel: 'Machine à mollets debout',
     muscles: 'Mollets',
@@ -260,6 +285,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Mollets à la presse': {
+    groupe: 'Jambes',
     image: 'Calf_Press_On_The_Leg_Press_Machine',
     materiel: 'Machine presse à cuisses',
     muscles: 'Mollets',
@@ -271,6 +297,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Mollets debout haltères': {
+    groupe: 'Jambes',
     image: 'Calf_Raise_On_A_Dumbbell',
     materiel: 'Haltères et une marche',
     muscles: 'Mollets',
@@ -282,6 +309,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Mollets sur une marche': {
+    groupe: 'Jambes',
     image: 'Standing_Calf_Raises',
     materiel: 'Une marche',
     muscles: 'Mollets',
@@ -296,6 +324,7 @@ export const FICHES: Record<string, FicheExercice> = {
 
   // ---------- Pectoraux / épaules / triceps ----------
   'Développé couché': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Barbell_Bench_Press_-_Medium_Grip',
     materiel: 'Banc plat et barre olympique',
     muscles: 'Pectoraux, triceps, épaules',
@@ -307,6 +336,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Développé incliné haltères': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Incline_Dumbbell_Press',
     materiel: 'Banc incliné (30 à 45°) et deux haltères',
     muscles: 'Haut des pectoraux, épaules',
@@ -318,6 +348,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   Dips: {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Dips_-_Chest_Version',
     materiel: 'Barres parallèles',
     muscles: 'Pectoraux, triceps',
@@ -330,6 +361,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Développé couché haltères': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Dumbbell_Bench_Press',
     materiel: 'Banc plat et deux haltères',
     muscles: 'Pectoraux, triceps',
@@ -341,6 +373,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   Pompes: {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Pushups',
     materiel: 'Aucun',
     muscles: 'Pectoraux, triceps, gainage',
@@ -353,6 +386,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pompes pieds surélevés': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Push-Ups_With_Feet_Elevated',
     materiel: 'Un banc ou une chaise',
     muscles: 'Haut des pectoraux, épaules',
@@ -365,6 +399,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Développé militaire': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Standing_Military_Press',
     materiel: 'Barre olympique (debout)',
     muscles: 'Épaules, triceps',
@@ -376,6 +411,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Développé épaules haltères': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Dumbbell_Shoulder_Press',
     materiel: 'Deux haltères (+ banc à dossier droit)',
     muscles: 'Épaules, triceps',
@@ -387,6 +423,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Arnold press': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Arnold_Dumbbell_Press',
     materiel: 'Deux haltères',
     muscles: 'Épaules (les 3 faisceaux)',
@@ -398,6 +435,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pompes piquées': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Handstand_Push-Ups',
     materiel: 'Aucun',
     muscles: 'Épaules, triceps',
@@ -410,6 +448,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pompes pike surélevées': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Handstand_Push-Ups',
     materiel: 'Un banc',
     muscles: 'Épaules, triceps',
@@ -422,6 +461,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Élévations latérales': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Side_Lateral_Raise',
     materiel: 'Deux haltères légers',
     muscles: 'Épaules (faisceau latéral)',
@@ -433,6 +473,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Élévations latérales haltères': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Side_Lateral_Raise',
     materiel: 'Deux haltères légers',
     muscles: 'Épaules (faisceau latéral)',
@@ -444,6 +485,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Face pull poulie': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Face_Pull',
     materiel: 'Poulie haute avec corde',
     muscles: 'Arrière d’épaules, haut du dos',
@@ -455,6 +497,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Oiseau haltères': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Reverse_Flyes',
     materiel: 'Deux haltères légers',
     muscles: 'Arrière d’épaules',
@@ -466,6 +509,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Extension triceps poulie': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Triceps_Pushdown',
     materiel: 'Poulie haute avec barre ou corde',
     muscles: 'Triceps',
@@ -477,6 +521,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Barre au front': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'EZ-Bar_Skullcrusher',
     materiel: 'Banc plat et barre EZ',
     muscles: 'Triceps',
@@ -488,6 +533,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Extension nuque haltère': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Dumbbell_One-Arm_Triceps_Extension',
     materiel: 'Un haltère',
     muscles: 'Triceps',
@@ -499,6 +545,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Kickback haltère': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Tricep_Dumbbell_Kickback',
     materiel: 'Un haltère et un banc',
     muscles: 'Triceps',
@@ -510,6 +557,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pompes diamant': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Push-Ups_-_Close_Triceps_Position',
     materiel: 'Aucun',
     muscles: 'Triceps, pectoraux',
@@ -522,6 +570,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Dips sur banc': {
+    groupe: 'Pectoraux, épaules, triceps',
     image: 'Bench_Dips',
     materiel: 'Un banc ou une chaise',
     muscles: 'Triceps',
@@ -536,6 +585,7 @@ export const FICHES: Record<string, FicheExercice> = {
 
   // ---------- Dos / biceps ----------
   'Rowing barre': {
+    groupe: 'Dos, biceps',
     image: 'Bent_Over_Barbell_Row',
     materiel: 'Barre olympique',
     muscles: 'Dos (grand dorsal, trapèzes), biceps',
@@ -547,6 +597,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Tirage horizontal poulie': {
+    groupe: 'Dos, biceps',
     image: 'Seated_Cable_Rows',
     materiel: 'Poulie basse avec poignée triangle',
     muscles: 'Dos, biceps',
@@ -558,6 +609,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Rowing haltère': {
+    groupe: 'Dos, biceps',
     image: 'One-Arm_Dumbbell_Row',
     materiel: 'Un haltère et un banc',
     muscles: 'Dos, biceps',
@@ -569,6 +621,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Rowing haltère un bras': {
+    groupe: 'Dos, biceps',
     image: 'One-Arm_Dumbbell_Row',
     materiel: 'Un haltère et un banc',
     muscles: 'Dos, biceps',
@@ -580,6 +633,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Rowing haltères buste penché': {
+    groupe: 'Dos, biceps',
     image: 'Bent_Over_Two-Dumbbell_Row',
     materiel: 'Deux haltères',
     muscles: 'Dos, biceps',
@@ -591,6 +645,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Rowing inversé sous une table': {
+    groupe: 'Dos, biceps',
     image: 'Inverted_Row',
     materiel: 'Une table solide ou une barre basse',
     muscles: 'Dos, biceps',
@@ -603,6 +658,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Superman rowing': {
+    groupe: 'Dos, biceps',
     image: 'Superman',
     materiel: 'Aucun (un tapis)',
     muscles: 'Lombaires, haut du dos',
@@ -614,6 +670,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   Tractions: {
+    groupe: 'Dos, biceps',
     image: 'Pullups',
     materiel: 'Barre de traction',
     muscles: 'Grand dorsal, biceps',
@@ -626,6 +683,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Tirage vertical poulie': {
+    groupe: 'Dos, biceps',
     image: 'Wide-Grip_Lat_Pulldown',
     materiel: 'Machine tirage vertical (poulie haute)',
     muscles: 'Grand dorsal, biceps',
@@ -637,6 +695,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pull-over haltère': {
+    groupe: 'Dos, biceps',
     image: 'Bent-Arm_Dumbbell_Pullover',
     materiel: 'Un haltère et un banc',
     muscles: 'Grand dorsal, pectoraux',
@@ -648,6 +707,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Rowing haltère prise haute': {
+    groupe: 'Dos, biceps',
     image: 'One-Arm_Dumbbell_Row',
     materiel: 'Un haltère et un banc',
     muscles: 'Haut du dos, arrière d’épaules',
@@ -659,6 +719,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Tractions négatives': {
+    groupe: 'Dos, biceps',
     image: 'Pullups',
     materiel: 'Barre de traction (+ une chaise)',
     muscles: 'Grand dorsal, biceps',
@@ -671,6 +732,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Curl barre EZ': {
+    groupe: 'Dos, biceps',
     image: 'Close-Grip_EZ_Bar_Curl',
     materiel: 'Barre EZ (barre ondulée)',
     muscles: 'Biceps',
@@ -682,6 +744,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Curl poulie': {
+    groupe: 'Dos, biceps',
     image: 'Standing_Biceps_Cable_Curl',
     materiel: 'Poulie basse avec barre droite',
     muscles: 'Biceps',
@@ -693,6 +756,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Curl haltères': {
+    groupe: 'Dos, biceps',
     image: 'Dumbbell_Bicep_Curl',
     materiel: 'Deux haltères',
     muscles: 'Biceps',
@@ -704,6 +768,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Curl marteau': {
+    groupe: 'Dos, biceps',
     image: 'Hammer_Curls',
     materiel: 'Deux haltères',
     muscles: 'Biceps, avant-bras',
@@ -715,6 +780,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Tractions supination': {
+    groupe: 'Dos, biceps',
     image: 'Chin-Up',
     materiel: 'Barre de traction',
     muscles: 'Biceps, grand dorsal',
@@ -727,6 +793,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Curl serviette isométrique': {
+    groupe: 'Dos, biceps',
     materiel: 'Une serviette',
     muscles: 'Biceps',
     position: [
@@ -739,6 +806,7 @@ export const FICHES: Record<string, FicheExercice> = {
 
   // ---------- Gainage ----------
   'Relevés de jambes suspendu': {
+    groupe: 'Abdos, gainage',
     image: 'Hanging_Leg_Raise',
     materiel: 'Barre de traction',
     muscles: 'Abdominaux',
@@ -750,6 +818,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Crunch poulie': {
+    groupe: 'Abdos, gainage',
     image: 'Cable_Crunch',
     materiel: 'Poulie haute avec corde',
     muscles: 'Abdominaux',
@@ -761,6 +830,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Gainage planche': {
+    groupe: 'Abdos, gainage',
     image: 'Plank',
     materiel: 'Aucun (un tapis)',
     muscles: 'Abdominaux, gainage profond',
@@ -772,6 +842,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Russian twist haltère': {
+    groupe: 'Abdos, gainage',
     image: 'Russian_Twist',
     materiel: 'Un haltère ou un disque',
     muscles: 'Obliques, abdominaux',
@@ -783,6 +854,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Hollow hold': {
+    groupe: 'Abdos, gainage',
     materiel: 'Aucun (un tapis)',
     muscles: 'Abdominaux',
     position: [
@@ -793,6 +865,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Y-T-W au sol': {
+    groupe: 'Abdos, gainage',
     materiel: 'Aucun (un tapis)',
     muscles: 'Haut du dos, arrière d’épaules',
     position: [
@@ -803,6 +876,7 @@ export const FICHES: Record<string, FicheExercice> = {
     ],
   },
   'Pompes scapulaires': {
+    groupe: 'Abdos, gainage',
     image: 'Pushups',
     materiel: 'Aucun',
     muscles: 'Dentelés, stabilité des épaules',

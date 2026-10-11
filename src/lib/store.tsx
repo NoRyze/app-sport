@@ -17,6 +17,8 @@ type AppState = {
   erreurIa?: string;
   majProfil: (profil: Profile) => Promise<void>;
   generer: () => Promise<void>;
+  // nouveau = nouveau suivi ; sinon on garde l'id et les séances déjà remplies
+  enregistrerProgramme: (programme: Program, nouveau: boolean) => Promise<void>;
   // modif reçoit la dernière version de la séance (ou `initial` si elle n'existe pas encore)
   majLog: (cle: string, initial: SeanceLog, modif: (log: SeanceLog) => SeanceLog) => Promise<void>;
   ajouterMesure: (mesure: Mesure) => Promise<void>;
@@ -72,6 +74,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function enregistrerProgramme(nouveauProgramme: Program, nouveau: boolean) {
+    setProgramme(nouveauProgramme);
+    if (nouveau) setLogs({});
+    setErreurIa(undefined);
+    await saveProgram(nouveauProgramme);
+  }
+
   async function majLog(cle: string, initial: SeanceLog, modif: (log: SeanceLog) => SeanceLog) {
     if (!programme) return;
     const actuels = logsRef.current;
@@ -106,6 +115,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         erreurIa,
         majProfil,
         generer,
+        enregistrerProgramme,
         majLog,
         ajouterMesure,
         supprimerMesure,
