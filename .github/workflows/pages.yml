@@ -1,0 +1,50 @@
+# Publie automatiquement la web app sur GitHub Pages à chaque mise à jour du code.
+name: Publier la web app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # L'app est servie dans un sous-dossier : https://<pseudo>.github.io/<nom-du-depot>/
+      - name: Régler l'adresse de base
+        run: |
+          node -e "
+            const fs = require('fs');
+            const app = JSON.parse(fs.readFileSync('app.json', 'utf8'));
+            app.expo.experiments.baseUrl = '/${{ github.event.repository.name }}';
+            fs.writeFileSync('app.json', JSON.stringify(app, null, 2));
+          "
+      - run: npm run build:web
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
