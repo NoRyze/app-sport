@@ -1,6 +1,7 @@
 // Sauvegarde locale sur le téléphone (AsyncStorage = petit stockage clé/valeur).
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import type { ProgrammeCF, SeanceCFLog } from './crossfit';
 import { DEFAULT_PROFILE, type Mesure, type Profile, type Program, type SeanceLog } from './types';
 
 const PROFILE_KEY = 'profile';
@@ -40,3 +41,17 @@ export async function loadMesures(): Promise<Mesure[]> {
 }
 
 export const saveMesures = (mesures: Mesure[]) => write(MESURES_KEY, mesures);
+
+// CrossFit : un programme et des scores à part.
+const PROGRAMME_CF_KEY = 'program-crossfit';
+const logsCFKey = (programId: string) => `cf-logs:${programId}`;
+
+export const loadProgrammeCF = () => read<ProgrammeCF>(PROGRAMME_CF_KEY);
+
+export const saveProgrammeCF = (programme: ProgrammeCF) => write(PROGRAMME_CF_KEY, programme);
+
+export async function loadLogsCF(programId: string): Promise<Record<string, SeanceCFLog>> {
+  return (await read<Record<string, SeanceCFLog>>(logsCFKey(programId))) ?? {};
+}
+
+export const saveLogsCF = (programId: string, logs: Record<string, SeanceCFLog>) => write(logsCFKey(programId), logs);

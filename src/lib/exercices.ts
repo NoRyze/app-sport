@@ -3,7 +3,7 @@
 // https://github.com/yuhonas/free-exercise-db
 // Chaque exercice a 2 images : position de départ et position d'arrivée.
 
-export const GROUPES = ['Jambes', 'Pectoraux, épaules, triceps', 'Dos, biceps', 'Abdos, gainage'] as const;
+export const GROUPES = ['Jambes', 'Pectoraux, épaules, triceps', 'Dos, biceps', 'Abdos, gainage', 'CrossFit'] as const;
 export type Groupe = (typeof GROUPES)[number];
 
 export type FicheExercice = {
@@ -887,6 +887,348 @@ export const FICHES: Record<string, FicheExercice> = {
       'Mouvement de petite amplitude.',
     ],
   },
+
+  // ---------- CrossFit ----------
+  'Thruster': {
+    groupe: 'CrossFit',
+    image: 'Kettlebell_Thruster',
+    materiel: 'Barre olympique (ou kettlebells / haltères)',
+    muscles: 'Quadriceps, fessiers, épaules, triceps',
+    position: [
+      'Barre en appui sur l’avant des épaules, coudes hauts.',
+      'Descends en front squat, cuisses au moins parallèles au sol.',
+      'Remonte en explosant et utilise cet élan pour pousser la barre au-dessus de la tête.',
+      'Bras verrouillés en haut, puis redescends la barre sur les épaules en enchaînant le squat.',
+    ],
+  },
+  'Dumbbell thruster': {
+    groupe: 'CrossFit',
+    image: 'Kettlebell_Thruster',
+    materiel: 'Deux haltères',
+    muscles: 'Quadriceps, fessiers, épaules, triceps',
+    position: [
+      'Un haltère dans chaque main, posés sur les épaules.',
+      'Squat complet, buste droit, talons au sol.',
+      'Remonte en poussant fort et envoie les haltères au-dessus de la tête.',
+      'Bras tendus en haut, puis redescends en contrôlant.',
+    ],
+  },
+  'Power clean': {
+    groupe: 'CrossFit',
+    image: 'Power_Clean',
+    materiel: 'Barre olympique',
+    muscles: 'Chaîne postérieure, trapèzes, quadriceps',
+    position: [
+      'Pieds largeur de hanches, barre au contact des tibias, dos plat.',
+      'Pousse dans le sol : la barre remonte le long des cuisses.',
+      'Grande extension des hanches, haussement d’épaules, tire sous la barre.',
+      'Réceptionne la barre sur l’avant des épaules en quart de squat, coudes hauts.',
+    ],
+  },
+  'Power snatch': {
+    groupe: 'CrossFit',
+    image: 'Power_Snatch',
+    materiel: 'Barre olympique, prise large',
+    muscles: 'Chaîne postérieure, épaules, trapèzes',
+    position: [
+      'Prise très large, barre contre les tibias, dos plat.',
+      'La barre remonte collée au corps.',
+      'Extension explosive des hanches, puis passe sous la barre.',
+      'Réceptionne bras tendus au-dessus de la tête en quart de squat.',
+    ],
+  },
+  'Clean and jerk': {
+    groupe: 'CrossFit',
+    image: 'Clean_and_Jerk',
+    materiel: 'Barre olympique',
+    muscles: 'Corps entier',
+    position: [
+      'Épaulé : amène la barre sur l’avant des épaules (comme le power clean).',
+      'Petite flexion des genoux, buste droit.',
+      'Pousse explosivement avec les jambes et passe sous la barre (fentes ou pieds parallèles).',
+      'Bras verrouillés, ramène les pieds alignés pour valider.',
+    ],
+  },
+  'Push press': {
+    groupe: 'CrossFit',
+    image: 'Push_Press',
+    materiel: 'Barre olympique',
+    muscles: 'Épaules, triceps, jambes',
+    position: [
+      'Barre sur l’avant des épaules, coudes légèrement devant.',
+      'Petite flexion des genoux (dip), buste vertical.',
+      'Pousse fort avec les jambes et termine avec les bras.',
+      'Barre au-dessus de la tête, tête légèrement en avant, bras verrouillés.',
+    ],
+  },
+  'Front squat': {
+    groupe: 'CrossFit',
+    image: 'Front_Squat_Clean_Grip',
+    materiel: 'Barre olympique sur rack',
+    muscles: 'Quadriceps, fessiers, gainage',
+    position: [
+      'Barre posée sur l’avant des épaules, coudes hauts et vers l’avant.',
+      'Pieds largeur d’épaules, pointes légèrement ouvertes.',
+      'Descends buste droit, cuisses sous la parallèle si possible.',
+      'Remonte en gardant les coudes hauts.',
+    ],
+  },
+  'Overhead squat': {
+    groupe: 'CrossFit',
+    image: 'Overhead_Squat',
+    materiel: 'Barre olympique, prise large',
+    muscles: 'Quadriceps, épaules, gainage, mobilité',
+    position: [
+      'Barre bras tendus au-dessus de la tête, prise large.',
+      'Aisselles tournées vers l’avant, épaules actives.',
+      'Descends en squat en gardant la barre au-dessus du milieu des pieds.',
+      'Remonte sans laisser la barre partir vers l’avant.',
+    ],
+  },
+  'Wall ball': {
+    groupe: 'CrossFit',
+    materiel: 'Medicine ball (6 à 9 kg) et un mur avec une cible',
+    muscles: 'Quadriceps, fessiers, épaules',
+    position: [
+      'Balle tenue contre la poitrine, face au mur à environ 50 cm.',
+      'Squat complet, hanches sous les genoux.',
+      'Remonte et lance la balle sur la cible en tendant les bras.',
+      'Rattrape la balle et enchaîne directement le squat suivant.',
+    ],
+  },
+  'Kettlebell swing': {
+    groupe: 'CrossFit',
+    image: 'One-Arm_Kettlebell_Swings',
+    materiel: 'Kettlebell',
+    muscles: 'Fessiers, ischio-jambiers, lombaires',
+    position: [
+      'Pieds un peu plus larges que les hanches, kettlebell à deux mains.',
+      'Bascule le bassin vers l’arrière, kettlebell entre les jambes, dos plat.',
+      'Ouvre les hanches avec force : ce sont les hanches qui lancent, pas les bras.',
+      'Version RX : kettlebell au-dessus de la tête. Version russe : à hauteur des yeux.',
+    ],
+  },
+  'Dumbbell snatch': {
+    groupe: 'CrossFit',
+    image: 'One-Arm_Kettlebell_Snatch',
+    materiel: 'Un haltère',
+    muscles: 'Chaîne postérieure, épaules',
+    position: [
+      'Haltère au sol entre les pieds, dos plat.',
+      'Arrache l’haltère en ouvrant les hanches, bras proche du corps.',
+      'Termine bras tendu au-dessus de la tête, debout.',
+      'Change de main à chaque rep (ou selon le WOD).',
+    ],
+  },
+  'Box jump': {
+    groupe: 'CrossFit',
+    image: 'Front_Box_Jump',
+    materiel: 'Box (50 à 60 cm)',
+    muscles: 'Quadriceps, fessiers, explosivité',
+    position: [
+      'Face à la box, pieds largeur de hanches.',
+      'Lance les bras et saute en poussant fort.',
+      'Atterris les deux pieds sur la box, genoux souples.',
+      'Tends complètement les hanches en haut, puis redescends en marchant.',
+    ],
+  },
+  'Pull-up': {
+    groupe: 'CrossFit',
+    image: 'Pullups',
+    materiel: 'Barre de traction',
+    muscles: 'Dos (grands dorsaux), biceps',
+    poidsDuCorps: 1,
+    position: [
+      'Mains en pronation, un peu plus larges que les épaules.',
+      'Pars bras tendus, épaules engagées.',
+      'Tire jusqu’à passer le menton au-dessus de la barre.',
+      'En CrossFit, le kipping (élan) est autorisé une fois la version stricte maîtrisée.',
+    ],
+  },
+  'Chest-to-bar pull-up': {
+    groupe: 'CrossFit',
+    image: 'Pullups',
+    materiel: 'Barre de traction',
+    muscles: 'Dos, biceps',
+    poidsDuCorps: 1,
+    position: [
+      'Comme un pull-up, mais plus haut.',
+      'La poitrine doit toucher la barre (sous les clavicules).',
+      'Tire les coudes vers l’arrière et le bas.',
+      'Kipping autorisé.',
+    ],
+  },
+  'Muscle-up': {
+    groupe: 'CrossFit',
+    image: 'Muscle_Up',
+    materiel: 'Anneaux ou barre',
+    muscles: 'Dos, pectoraux, triceps',
+    poidsDuCorps: 1,
+    position: [
+      'Traction explosive en tirant la barre vers les hanches.',
+      'Bascule rapidement le buste au-dessus de la barre (transition).',
+      'Termine par un dip, bras verrouillés.',
+      'À travailler seulement quand 10 chest-to-bar et 10 dips sont faciles.',
+    ],
+  },
+  'Toes-to-bar': {
+    groupe: 'CrossFit',
+    image: 'Hanging_Leg_Raise',
+    materiel: 'Barre de traction',
+    muscles: 'Abdominaux, grip, dorsaux',
+    position: [
+      'Suspendu bras tendus, prise largeur d’épaules.',
+      'Balancement contrôlé : creuse puis cambre légèrement.',
+      'Ramène les pieds jusqu’à toucher la barre.',
+      'Les deux pieds doivent toucher la barre en même temps.',
+    ],
+  },
+  'Double-under': {
+    groupe: 'CrossFit',
+    image: 'Rope_Jumping',
+    materiel: 'Corde à sauter',
+    muscles: 'Mollets, coordination, cardio',
+    position: [
+      'Coudes près du corps, la rotation vient des poignets.',
+      'Saut un peu plus haut qu’un saut simple, jambes presque tendues.',
+      'La corde passe deux fois sous les pieds à chaque saut.',
+      'Pour débuter : alterne 3 sauts simples et 1 double.',
+    ],
+  },
+  'Rowing': {
+    groupe: 'CrossFit',
+    image: 'Rowing_Stationary',
+    materiel: 'Rameur (type Concept2)',
+    muscles: 'Jambes, dos, bras, cardio',
+    position: [
+      'Ordre de la poussée : jambes, puis buste, puis bras.',
+      'Au retour : bras, puis buste, puis jambes.',
+      'Dos droit, ne tire pas avec les bras en premier.',
+      'Le score se compte en calories ou en mètres affichés.',
+    ],
+  },
+  'Handstand push-up': {
+    groupe: 'CrossFit',
+    image: 'Handstand_Push-Ups',
+    materiel: 'Un mur (et un tapis pour la tête)',
+    muscles: 'Épaules, triceps',
+    poidsDuCorps: 1,
+    position: [
+      'En équilibre sur les mains, dos face au mur.',
+      'Mains un peu plus larges que les épaules.',
+      'Descends la tête jusqu’au tapis en contrôlant.',
+      'Pousse jusqu’à bras tendus. Version allégée : pike push-up.',
+    ],
+  },
+  'Push-up': {
+    groupe: 'CrossFit',
+    image: 'Pushups',
+    materiel: 'Aucun',
+    muscles: 'Pectoraux, triceps, épaules',
+    poidsDuCorps: 0.65,
+    position: [
+      'Mains un peu plus larges que les épaules, corps gainé en planche.',
+      'La poitrine touche le sol en bas.',
+      'Remonte jusqu’à bras tendus.',
+      'Coudes à 45° du corps, pas écartés à 90°.',
+    ],
+  },
+  'Air squat': {
+    groupe: 'CrossFit',
+    image: 'Bodyweight_Squat',
+    materiel: 'Aucun',
+    muscles: 'Quadriceps, fessiers',
+    poidsDuCorps: 0.7,
+    position: [
+      'Pieds largeur d’épaules.',
+      'Descends hanches sous les genoux, talons au sol.',
+      'Bras devant toi pour l’équilibre.',
+      'Remonte jusqu’à extension complète des hanches.',
+    ],
+  },
+  'Burpee': {
+    groupe: 'CrossFit',
+    materiel: 'Aucun',
+    muscles: 'Corps entier, cardio',
+    poidsDuCorps: 0.5,
+    position: [
+      'Debout, pose les mains au sol.',
+      'Saute les pieds en arrière, poitrine et cuisses touchent le sol.',
+      'Ramène les pieds vers les mains d’un saut.',
+      'Saute en tapant des mains au-dessus de la tête.',
+    ],
+  },
+  'Sit-up': {
+    groupe: 'CrossFit',
+    image: 'Sit-Up',
+    materiel: 'Un tapis (et un AbMat si possible)',
+    muscles: 'Abdominaux',
+    position: [
+      'Allongé, plantes des pieds jointes (papillon) ou pieds au sol.',
+      'Bras tendus derrière la tête.',
+      'Remonte jusqu’à toucher le sol devant tes pieds.',
+      'Redescends jusqu’à toucher le sol derrière la tête avec les mains.',
+    ],
+  },
+  'Walking lunge': {
+    groupe: 'CrossFit',
+    image: 'Bodyweight_Walking_Lunge',
+    materiel: 'Aucun',
+    muscles: 'Quadriceps, fessiers',
+    poidsDuCorps: 0.7,
+    position: [
+      'Grand pas en avant, buste droit.',
+      'Le genou arrière frôle le sol.',
+      'Pousse sur la jambe avant et enchaîne avec l’autre jambe.',
+      'Chaque pas compte pour une rep.',
+    ],
+  },
+  'Mountain climber': {
+    groupe: 'CrossFit',
+    image: 'Mountain_Climbers',
+    materiel: 'Aucun',
+    muscles: 'Abdominaux, épaules, cardio',
+    position: [
+      'Position de pompe bras tendus.',
+      'Ramène un genou vers la poitrine puis alterne vite.',
+      'Hanches basses, dos plat.',
+      'Chaque genou compte pour une rep.',
+    ],
+  },
+  'Run': {
+    groupe: 'CrossFit',
+    materiel: 'Aucun (ou un tapis de course)',
+    muscles: 'Cardio, jambes',
+    position: [
+      'Allure soutenue mais régulière sur tout le WOD.',
+      'Foulée courte, pose du pied sous le bassin.',
+      'Respire profondément, épaules relâchées.',
+      'Pas de place pour courir : remplace 400 m par 2 min de corde ou 500 m de rameur.',
+    ],
+  },
+  'Handstand hold': {
+    groupe: 'CrossFit',
+    materiel: 'Un mur',
+    muscles: 'Épaules, gainage',
+    position: [
+      'Monte en équilibre face ou dos au mur.',
+      'Bras verrouillés, épaules qui poussent vers le plafond.',
+      'Corps gainé, fessiers serrés.',
+      'Pour débuter : pieds sur une box, bassin au-dessus des mains.',
+    ],
+  },
+  'Pistol squat': {
+    groupe: 'CrossFit',
+    materiel: 'Aucun (une box pour s’aider)',
+    muscles: 'Quadriceps, fessiers, équilibre',
+    poidsDuCorps: 0.7,
+    position: [
+      'Debout sur une jambe, l’autre tendue devant.',
+      'Descends le plus bas possible en gardant le talon au sol.',
+      'Bras devant pour l’équilibre.',
+      'Progression : descendre sur une box, puis de plus en plus bas.',
+    ],
+  },
 };
 
 // Retrouve la fiche d'un exercice, même si l'IA l'a nommé un peu différemment.
@@ -913,6 +1255,8 @@ const ALIAS: Record<string, string> = {
   'skull crusher': 'barre au front',
   'bulgarian split squat': 'fentes bulgares',
   'plank': 'gainage planche',
+  'back squat': 'squat barre',
+  'strict press': 'developpe militaire',
 };
 
 export function ficheExercice(nom: string): FicheExercice | undefined {

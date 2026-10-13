@@ -4,7 +4,21 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 
 import { genererProgramme } from './ai';
-import { loadLogs, loadMesures, loadProfile, loadProgram, saveLogs, saveMesures, saveProfile, saveProgram } from './storage';
+import { genererProgrammeCF, type ProgrammeCF, type SeanceCFLog } from './crossfit';
+import {
+  loadLogs,
+  loadLogsCF,
+  loadMesures,
+  loadProfile,
+  loadProgram,
+  loadProgrammeCF,
+  saveLogs,
+  saveLogsCF,
+  saveMesures,
+  saveProfile,
+  saveProgram,
+  saveProgrammeCF,
+} from './storage';
 import { DEFAULT_PROFILE, type Mesure, type Profile, type Program, type SeanceLog } from './types';
 
 type AppState = {
@@ -23,6 +37,11 @@ type AppState = {
   majLog: (cle: string, initial: SeanceLog, modif: (log: SeanceLog) => SeanceLog) => Promise<void>;
   ajouterMesure: (mesure: Mesure) => Promise<void>;
   supprimerMesure: (id: string) => Promise<void>;
+  // CrossFit
+  programmeCF: ProgrammeCF | null;
+  logsCF: Record<string, SeanceCFLog>;
+  genererCF: () => Promise<void>;
+  majLogCF: (cle: string, modif: (log: SeanceCFLog) => SeanceCFLog) => Promise<void>;
 };
 
 const AppContext = createContext<AppState | null>(null);
@@ -41,16 +60,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
   const [mesures, setMesures] = useState<Mesure[]>([]);
   const [enGeneration, setEnGeneration] = useState(false);
+  const [programmeCF, setProgrammeCF] = useState<ProgrammeCF | null>(null);
+  const [logsCF, setLogsCFState] = useState<Record<string, SeanceCFLog>>({});
+  const logsCFRef = useRef(logsCF);
+  const setLogsCF = (l: Record<string, SeanceCFLog>) => {
+    logsCFRef.current = l;
+    setLogsCFState(l);
+  };
   const [erreurIa, setErreurIa] = useState<string>();
 
   // Au démarrage : on recharge ce qui a été sauvegardé.
   useEffect(() => {
     (async () => {
-      const [p, prog, m] = await Promise.all([loadProfile(), loadProgram(), loadMesures()]);
+      const [p, prog, m, cf] = await Promise.all([loadProfile(), loadProgram(), loadMesures(), loadProgrammeCF()]);
       setProfil(p);
       setProgramme(prog);
       setMesures(m);
+      setProgrammeCF(cf);
       if (prog) setLogs(await loadLogs(prog.id));
+      if (cf) setLogsCF(await loadLogsCF(cf.id));
       setPret(true);
     })();
   }, []);
@@ -103,6 +131,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await saveMesures(nouvelles);
   }
 
+  async function genererCF() {
+    const nouveau = genererProgrammeCF(profil);
+    setProgrammeCF(nouveau);
+    setLogsCF({});
+    await saveProgrammeCF(nouveau);
+  }
+
+  async function majLogCF(cle: string, modif: (log: SeanceCFLog) => SeanceCFLog) {
+    if (!programmeCF) return;
+    const actuels = logsCFRef.current;
+    const nouveaux = { ...actuels, [cle]: modif(actuels[cle] ?? { terminee: false, rx: profil.niveau !== 'debutant' }) };
+    setLogsCF(nouveaux);
+    await saveLogsCF(programmeCF.id, nouveaux);
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -119,6 +162,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         majLog,
         ajouterMesure,
         supprimerMesure,
+        programmeCF,
+        logsCF,
+        genererCF,
+        majLogCF,
       }}>
       {children}
     </AppContext.Provider>

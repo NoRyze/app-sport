@@ -12,6 +12,7 @@ Premier module : **musculation**. À venir : HYROX, CrossFit.
   (vibration à la fin), tonnage, durée et calories estimées en direct.
 - **Fiche exercice** : images de départ et d'arrivée, matériel, muscles, bonne position.
 - **Corps** : poids et mensurations datés (bras, poitrine, taille, cuisse…).
+- **CrossFit** : programme hors ligne (échauffement, bloc force, WOD For Time / AMRAP / EMOM / Tabata), charges RX et Scaled, benchmarks (Fran, Helen, Cindy…) refaits en fin de programme, chrono WOD avec bips, saisie du score et records.
 - **Bilan** : assiduité, tonnage par semaine, progression de force (1RM estimé), évolution du corps.
 
 Calories : estimation par la méthode MET (5 MET × poids × durée). Images : [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) (domaine public).
@@ -52,13 +53,16 @@ src/
   app/                    ← chaque fichier = un écran (Expo Router)
     _layout.tsx           ← navigation principale
     (tabs)/_layout.tsx    ← barre d'onglets en bas
-    (tabs)/index.tsx      ← écran Programme
+    (tabs)/index.tsx      ← écran Muscu (programme)
+    (tabs)/crossfit.tsx   ← écran CrossFit (programme + records)
     (tabs)/corps.tsx      ← écran Corps (mesures)
     (tabs)/bilan.tsx      ← écran Bilan
     (tabs)/profil.tsx     ← écran Profil
     exercice/[nom].tsx    ← fiche exercice (images, position)
     programme/editer.tsx  ← créer / modifier un programme
     seance/[semaine]/[jour].tsx ← détail d'une séance
+    crossfit/[semaine]/[jour].tsx ← séance CrossFit + saisie du score
+    crossfit/chrono.tsx   ← chrono WOD (For Time, AMRAP, EMOM, Tabata)
   components/ui.tsx       ← boutons, cartes, sélecteurs réutilisables
   components/rest-timer.tsx ← chrono de repos
   components/barres.tsx   ← petit graphique en barres
@@ -71,6 +75,8 @@ src/
     ai.ts                 ← appel au serveur IA (avec secours hors ligne)
     exercices.ts          ← fiches exercices (images, position)
     stats.ts              ← tonnage, calories, 1RM, bilan
+    crossfit.ts           ← mouvements, benchmarks, générateur de WOD, scores
+    bip.ts                ← bips / vibrations du chrono
 supabase/functions/generate-program/index.ts ← serveur qui parle à Claude
 scripts/build-pwa.js       ← rend la version web installable et hors ligne
 public/icons/              ← icônes de l'app

@@ -18,9 +18,11 @@ export default function RootLayout() {
         <StatusBar style="light" />
         <Stack screenOptions={{ headerTintColor: Colors.text, headerStyle: { backgroundColor: Colors.background } }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="seance/[semaine]/[jour]" options={{ title: 'Séance', headerBackTitle: 'Programme' }} />
+          <Stack.Screen name="seance/[semaine]/[jour]" options={{ title: 'Séance', headerBackTitle: 'Muscu' }} />
           <Stack.Screen name="programme/editer" options={{ title: 'Programme', headerBackTitle: 'Retour' }} />
           <Stack.Screen name="exercice/[nom]" options={{ title: 'Fiche exercice', headerBackTitle: 'Séance' }} />
+          <Stack.Screen name="crossfit/[semaine]/[jour]" options={{ title: 'WOD', headerBackTitle: 'CrossFit' }} />
+          <Stack.Screen name="crossfit/chrono" options={{ title: 'Chrono WOD', headerBackTitle: 'Retour' }} />
         </Stack>
       </ThemeProvider>
     </AppProvider>

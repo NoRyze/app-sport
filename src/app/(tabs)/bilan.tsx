@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Barres } from '@/components/barres';
 import { Card, SousTitre, Texte, Titre } from '@/components/ui';
 import { Colors, Radius, Spacing } from '@/constants/theme';
+import { caloriesCF, recordsCF } from '@/lib/crossfit';
 import { calculerBilan, formatDuree, formatTonnage } from '@/lib/stats';
 import { useApp } from '@/lib/store';
 import { MENSURATIONS, cleSeance, type Mensuration, type Objectif } from '@/lib/types';
@@ -21,13 +22,13 @@ function sensPositif(cle: Mensuration, objectif: Objectif): 1 | -1 {
 }
 
 export default function BilanScreen() {
-  const { programme, logs, mesures, profil } = useApp();
+  const { programme, logs, mesures, profil, programmeCF } = useApp();
 
   if (!programme) {
     return (
-      <View style={styles.page}>
-        <Texte secondaire>Génère un programme pour voir ton bilan.</Texte>
-      </View>
+      <ScrollView contentContainerStyle={styles.page}>
+        {programmeCF ? <BilanCrossfit /> : <Texte secondaire>Génère un programme pour voir ton bilan.</Texte>}
+      </ScrollView>
     );
   }
 
@@ -140,7 +141,70 @@ export default function BilanScreen() {
           })
         )}
       </Card>
+
+      {programmeCF && <BilanCrossfit />}
     </ScrollView>
+  );
+}
+
+// Bilan de la partie CrossFit : régularité, benchmarks refaits, charges.
+function BilanCrossfit() {
+  const { programmeCF, logsCF, profil } = useApp();
+  if (!programmeCF) return null;
+  const r = recordsCF(programmeCF, logsCF);
+  return (
+    <>
+      <Text style={[styles.badge, { marginTop: Spacing.md }]}>🔥 CrossFit</Text>
+      <Titre>{programmeCF.titre}</Titre>
+      <View style={styles.grille}>
+        <Stat label="WODs faits" valeur={`${r.seancesFaites}/${r.seancesPrevues}`} />
+        <Stat label="Benchmarks" valeur={String(r.benchmarks.reduce((n, b) => n + b.essais.length, 0))} />
+        <Stat label="Temps (estim.)" valeur={formatDuree(r.minutes)} />
+        <Stat label="Calories (estim.)" valeur={`${caloriesCF(r.minutes, profil.poids).toLocaleString('fr-FR')} kcal`} />
+      </View>
+      <Card>
+        <SousTitre>Benchmarks</SousTitre>
+        {r.benchmarks.length === 0 ? (
+          <Texte secondaire>Ton test de départ est la séance 1 de la semaine 1. Tu le refais à la fin pour comparer.</Texte>
+        ) : (
+          r.benchmarks.map((b) => {
+            const premier = b.essais[0];
+            const dernier = b.essais[b.essais.length - 1];
+            const progres = b.essais.length >= 2 && dernier.rx === premier.rx ? dernier.valeur - premier.valeur : null;
+            return (
+              <View key={b.nom} style={styles.ligne}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.ligneNom}>{b.nom}</Text>
+                  <Text style={styles.note}>
+                    {b.essais.map((e) => `S${e.semaine} : ${e.texte}${e.rx ? ' RX' : ''}`).join('  ·  ')}
+                  </Text>
+                </View>
+                <Text
+                  style={[
+                    styles.gain,
+                    { color: progres == null ? Colors.textSecondary : progres > 0 ? Colors.success : Colors.accent },
+                  ]}>
+                  {progres == null ? (b.essais.length >= 2 ? '—' : 'nouveau') : progres > 0 ? 'mieux' : progres < 0 ? 'moins bien' : 'égal'}
+                </Text>
+              </View>
+            );
+          })
+        )}
+      </Card>
+      {r.force.length > 0 && (
+        <Card>
+          <SousTitre>Charges sur le bloc force</SousTitre>
+          {r.force.map((f) => (
+            <View key={f.mouvement} style={styles.ligne}>
+              <Text style={[styles.ligneNom, { flex: 1 }]}>{f.mouvement}</Text>
+              <Text style={styles.note}>
+                {fmt(f.premier)} → {fmt(f.dernier)} kg · record {fmt(f.record)} kg
+              </Text>
+            </View>
+          ))}
+        </Card>
+      )}
+    </>
   );
 }
 
@@ -177,6 +241,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
   },
   ligneNom: { color: Colors.text, fontWeight: '700', fontSize: 15 },
-  gain: { width: 64, textAlign: 'right', fontWeight: '800' },
+  gain: { minWidth: 64, textAlign: 'right', fontWeight: '800' },
   note: { color: Colors.textSecondary, fontSize: 12, lineHeight: 17 },
 });
